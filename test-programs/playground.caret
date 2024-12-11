@@ -1,0 +1,77 @@
+def square {
+  lambda x : 
+  (* x x) 
+};
+
+def cube {
+  lambda x : 
+  (* (square x) x)
+};
+
+def numbers {
+  list 1 2 3 4 5
+};
+
+print-result(square 5);
+print-result(cube 5);
+
+def even? {
+  lambda x : 
+  (= (modulo x 2) 0)
+};
+
+def filter {
+  lambda func, item-list :
+  (if (null? item-list)
+      (list)
+      (if (func (first item-list))
+          (construct (first item-list) (filter func (rest item-list)))
+          (filter func (rest item-list))))
+};
+
+print-result(filter even? numbers);
+
+def factorial {
+  lambda x : 
+  (if (= x 0)
+      1
+      (* x (factorial (- x 1))))
+};
+
+print-result(factorial 5);
+
+def map {
+  lambda func, item-list :
+  (if (null? item-list)
+      (list)
+      (construct (func (first item-list)) (map func (rest item-list))))
+};
+
+def squares {
+  map square numbers
+};
+
+def cubes {
+  map cube numbers
+};
+
+print(squares);
+print(cubes);
+
+def pair {
+  lambda x, y :
+  (list x y)
+};
+
+print-result(pair 1 2);
+
+def zip {
+  lambda list1, list2 :
+  (if (null? list1)
+      (list)
+      (if (null? list2)
+          (list)
+          (construct (pair (first list1) (first list2)) (zip (rest list1) (rest list2)))))
+};
+
+print-result(zip numbers (list 6 7 8 9 10));

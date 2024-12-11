@@ -1,0 +1,19 @@
+def member? {
+  lambda item, lst :
+  (if (null? lst)
+      0  
+      (if (= (first lst) item)
+          1  
+          (member? item (rest lst))))
+};
+
+def common-elements {
+  lambda list1, list2 :
+  (if (null? list1)
+      (list)
+      (if (= (member? (first list1) list2) 1)
+          (construct (first list1) (common-elements (rest list1) list2))
+          (common-elements (rest list1) list2)))
+};
+
+print-result(common-elements (list 1 2 3 4 5) (list 3 4 5 6 7));
